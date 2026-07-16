@@ -1,3 +1,5 @@
+# Maths Homework
+
 It's 1 am and you're currently helping your sibling with their maths homework.
 While they seem to have zoomed through most of it, they're currently stuck on a section about combinatorics.
 Upon closer inspection, you find to your horror that their teacher has set them a single question
