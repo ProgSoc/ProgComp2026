@@ -44,7 +44,6 @@ int main() {
         window_sum += xi;
         // Finally, update the final output `sum` by XOR'ing.
         sum ^= window_sum;
-        std::cout << "x" << i << ' ' << xi << '\n';
     }
 
     // Output the final XOR sum.
