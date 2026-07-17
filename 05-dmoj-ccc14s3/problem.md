@@ -13,7 +13,8 @@ There is also a separate parking line that goes horizontally (we refer to this a
 which cars can drive into to stay temporarily before finally going further down the hill
 (cars cannot go back up towards the mountain top).
 At the bottom of this mountain is a lake, where all the cars are trying to go.
-A diagram of this mountain you're on is shown below.
+A diagram of this mountain you're on is shown below
+(Note: if you're struggling to see the images in this prompt on a dark background, open the image in a new tab with a white background).
 
 ![Mountain Diagram](https://static.dmoj.ca/texoid/2b0580e67e261c9a59df7e1532337a6e0b7e7325/svg)
 
