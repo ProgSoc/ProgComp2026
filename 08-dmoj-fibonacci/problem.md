@@ -42,7 +42,7 @@ Your output is a single integer, which is the value of $F(N)$ modulo $10^9 + 7$.
 3
 ```
 
-#### Explanation
+#### Explanation 1
 We start with base cases $F(0) = 0$ and $F(1) = 1$.
 * $F(2) = F(0) + F(1) = 0 + 1 = 1$,
 * $F(3) = F(1) + F(2) = 1 + 1 = 2$, and
@@ -60,6 +60,6 @@ Since $3$ modulo $10^9 + 7$ is still $3$, the solution is $3$.
 121393
 ```
 
-#### Explanation
+#### Explanation 2
 After much calculation, we find that $F(26) = 121393$.
 Again, this is less than $10^9 + 7$, so the modulo operation keeps it unchanged.
