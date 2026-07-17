@@ -32,7 +32,7 @@ You may assume that $\ell$ lines of input of the form `x y` will be provided (ex
 ### Output
 
 Output a single integer, which is the number of distinct slide paths that can be taken from Station $1$ to Station $n$.
-You may assume that this number will be less than $2^30$.
+You may assume that this number will be less than $2^{30}$.
 If there is no possible path from Station $1$ to Station $n$, then the number of paths will be $0$.
 
 ### Example
