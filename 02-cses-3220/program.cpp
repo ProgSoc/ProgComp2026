@@ -19,13 +19,11 @@ int main() {
     // We then initialise the window with the first `k` values of the generator's input.
     window.push(xi);
     window_sum += xi;
-    std::cout << "x1 " << xi << '\n';
     for (int i = 2; i <= k; ++i) {
         // Generate the next input `x_i` from `x_{i-1}`, and add to window.
         xi = (a * xi + b) % c;
         window.push(xi);
         window_sum += xi;
-        std::cout << "x" << i << ' ' << xi << '\n';
     }
 
     // The initial value of the final output starts with the first window's sum value.
