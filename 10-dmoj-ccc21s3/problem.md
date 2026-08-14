@@ -15,11 +15,11 @@ Every concert-goer $i$ is initially at some position $P_i$ along the single file
 with a walking speed of one metre per $W_i$ seconds,
 and will be able to pick up the scent of food when within $D_i$ metres from your truck.
 If you choose the optimal location,
-what is the total walking times needed from all concert-goers to pick up the scent of your food?
+what is the **total** walking time needed from *all* concert-goers to pick up the scent of your food?
 
 ### Input
 
-The first line of your input contains a single integer $N$ ($1 \le N \le 2 \times 10^5$).
+The first line of your input contains a single integer $N$ ($1 \le N \le 2 \times 10^5$), the number of concert-goers.
 Following this is $N$ lines of input providing information about the concert-goers.
 Each line $i$ ($1 \le i \le N$) contains three space-separated integers regarding concert-goer $i$:
 their initial position $P_i$ ($0 \le P_i \le 10^9$),
@@ -76,7 +76,7 @@ and concert-goer $2$ to walk four metres to position $16$ (to be $2$ metres away
 
 The walking time is $4 \times 1 = 4$ seconds for concert-goer $1$
 and $4 \times 4 = 16$ seconds for concert-goer $2$,
-making the total walking time $20$.
+making the total walking time $20$ seconds.
 
 #### Sample Input 3
 ```
