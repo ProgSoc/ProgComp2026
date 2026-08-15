@@ -1,4 +1,4 @@
-# Stadium Seating Plan
+# Carnival Seating Plan
 
 Today is the day of the sports carnival in your school!
 As the first activity of the day, you've got the difficult job of getting all the children to sit neatly in a circle
