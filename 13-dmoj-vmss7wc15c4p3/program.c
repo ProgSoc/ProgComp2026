@@ -1,112 +1,167 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
+#include <limits.h>
+// i accidentally put the quesiton 12 code here instead of my 13 solution oops
+#define MAX_N 100005
+#define MAX_M 300005
+#define MAX_EDGES (2 * MAX_M)
 
-#define MAX_M 1000
-#define MAX_N 1000
-#define MAX_VALUE 1000000
+// adjacency list stored in linked-list-over-arrays style, to[e] is the
+// destination of edge e, nxt[e] points to the next edge sharing the
+// same source city, head[u] is the first edge out of city u
+int to[MAX_EDGES];
+int weight[MAX_EDGES];
+int nxt[MAX_EDGES];
+int head[MAX_N];
+int edgeCount;
 
-int grid[MAX_M][MAX_N];
-bool seen[MAX_M * MAX_N];
-
-int countArr[MAX_VALUE + 2];
-int cum[MAX_VALUE + 2];
-int cursor[MAX_VALUE + 2];
-int adjRow[MAX_M * MAX_N];
-int adjCol[MAX_M * MAX_N];
+// costStart[i] is the shortest distance from city 0 to city i
+// costEnd[i] is the shortest distance from city n-1 to city i
+int costStart[MAX_N];
+int costEnd[MAX_N];
 
 typedef struct {
-    int row;
-    int col;
-} Pos;
+    int cost;
+    int node;
+} HeapItem;
 
-Pos *stack;
-int stackSize;
-int stackCapacity;
+// binary min-heap used as the priority queue for dijkstra, 1-indexed
+// (heap[1] is the root) since that simplifies the parent/child index
+// arithmetic (parent = i / 2, children = i * 2 and i * 2 + 1)
+HeapItem heap[MAX_EDGES + 10];
+int heapSize;
 
-void pushStack(int row, int col) {
-    if (stackSize == stackCapacity) {
-        stackCapacity *= 2;
-        stack = realloc(stack, stackCapacity * sizeof(Pos));
-    }
-    stack[stackSize].row = row;
-    stack[stackSize].col = col;
-    stackSize++;
+// adds a single directed edge u -> v with the given weight, called
+// twice per input line since highways are bidirectional
+void addEdge(int u, int v, int w) {
+    to[edgeCount] = v;
+    weight[edgeCount] = w;
+    nxt[edgeCount] = head[u];
+    head[u] = edgeCount;
+    edgeCount++;
 }
 
-Pos popStack(void) {
-    stackSize--;
-    return stack[stackSize];
+void heapPush(int cost, int node) {
+    heapSize++;
+    int i = heapSize;
+    heap[i].cost = cost;
+    heap[i].node = node;
+
+    // bubble the new entry up towards the root while it's smaller
+    // than its parent
+    while (i > 1) {
+        int parent = i / 2;
+        if (heap[parent].cost > heap[i].cost) {
+            HeapItem temp = heap[parent];
+            heap[parent] = heap[i];
+            heap[i] = temp;
+            i = parent;
+        } else {
+            break;
+        }
+    }
+}
+
+HeapItem heapPop(void) {
+    // the minimum is always at the root, save it before overwriting
+    HeapItem top = heap[1];
+    heap[1] = heap[heapSize];
+    heapSize--;
+
+    // sift the moved element down to restore the min-heap property
+    int i = 1;
+    while (1) {
+        int left = i * 2;
+        int right = i * 2 + 1;
+        int smallest = i;
+        if (left <= heapSize && heap[left].cost < heap[smallest].cost) {
+            smallest = left;
+        }
+        if (right <= heapSize && heap[right].cost < heap[smallest].cost) {
+            smallest = right;
+        }
+        if (smallest == i) {
+            break;
+        }
+        HeapItem temp = heap[i];
+        heap[i] = heap[smallest];
+        heap[smallest] = temp;
+        i = smallest;
+    }
+
+    return top;
+}
+
+// standard dijkstra's single source shortest path from source, fills
+// distOut[] with the shortest distance to every city, uses lazy
+// deletion, outdated heap entries are naturally skipped since any
+// city popped with a cost higher than its already-finalised distOut
+// value will just fail the newCost < distOut[v] check for its own
+// neighbours anyway, so no explicit visited array is needed here
+void sssp(int source, int n, int *distOut) {
+    for (int i = 0; i < n; i++) {
+        distOut[i] = INT_MAX;
+    }
+    distOut[source] = 0;
+
+    heapSize = 0;
+    heapPush(0, source);
+
+    while (heapSize > 0) {
+        HeapItem top = heapPop();
+        int cost = top.cost;
+        int u = top.node;
+
+        // relax every edge out of u, if going through u gives a
+        // shorter path to a neighbour v, update it and push the new
+        // distance onto the heap
+        for (int e = head[u]; e != -1; e = nxt[e]) {
+            int v = to[e];
+            int w = weight[e];
+            int newCost = cost + w;
+            if (newCost < distOut[v]) {
+                distOut[v] = newCost;
+                heapPush(newCost, v);
+            }
+        }
+    }
 }
 
 int main(void) {
-    int m, n;
-    scanf("%d", &m);
-    scanf("%d", &n);
+    int n, m;
+    scanf("%d %d", &n, &m);
 
+    for (int i = 0; i < n; i++) {
+        head[i] = -1;
+    }
+
+    // read every highway and add it in both directions, since crossing
+    // it either way costs the same t minutes
     for (int i = 0; i < m; i++) {
-        for (int j = 0; j < n; j++) {
-            scanf("%d", &grid[i][j]);
+        int a, b, t;
+        scanf("%d %d %d", &a, &b, &t);
+        addEdge(a, b, t);
+        addEdge(b, a, t);
+    }
+
+    // shortest distance from city 0 to every city, and from city n-1
+    // to every city, the graph being undirected means the second call
+    // also gives us the shortest distance from every city to n-1
+    sssp(0, n, costStart);
+    sssp(n - 1, n, costEnd);
+
+    // if the friend is in city i, the fastest trip is 0 to i to n-1,
+    // costing costStart[i] + costEnd[i], we want the worst case across
+    // every possible city the friend could be in, so take the maximum
+    // of this sum over all cities
+    int maxCost = costStart[0] + costEnd[0];
+    for (int i = 0; i < n; i++) {
+        int total = costStart[i] + costEnd[i];
+        if (total > maxCost) {
+            maxCost = total;
         }
     }
 
-    for (int i = 1; i <= m; i++) {
-        for (int j = 1; j <= n; j++) {
-            int v = i * j;
-            if (v <= MAX_VALUE) {
-                countArr[v]++;
-            }
-        }
-    }
+    printf("%d\n", maxCost);
 
-    cum[1] = 0;
-    for (int v = 1; v <= MAX_VALUE; v++) {
-        cum[v + 1] = cum[v] + countArr[v];
-        cursor[v] = cum[v];
-    }
-
-    for (int i = 1; i <= m; i++) {
-        for (int j = 1; j <= n; j++) {
-            int v = i * j;
-            if (v <= MAX_VALUE) {
-                int pos = cursor[v];
-                adjRow[pos] = i - 1;
-                adjCol[pos] = j - 1;
-                cursor[v]++;
-            }
-        }
-    }
-
-    stackCapacity = 1024;
-    stack = malloc(stackCapacity * sizeof(Pos));
-    stackSize = 0;
-
-    pushStack(0, 0);
-    seen[0] = true;
-
-    while (stackSize > 0) {
-        Pos cur = popStack();
-        int r = cur.row;
-        int c = cur.col;
-        int v = grid[r][c];
-
-        for (int idx = cum[v]; idx < cum[v + 1]; idx++) {
-            int row = adjRow[idx];
-            int col = adjCol[idx];
-            int flatIdx = row * n + col;
-            if (!seen[flatIdx]) {
-                seen[flatIdx] = true;
-                pushStack(row, col);
-            }
-        }
-    }
-
-    if (seen[m * n - 1]) {
-        printf("yes\n");
-    } else {
-        printf("no\n");
-    }
-
-    free(stack);
     return 0;
 }

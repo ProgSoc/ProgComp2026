@@ -8,6 +8,9 @@
 
 int grid[MAX_M][MAX_N];
 bool visited[MAX_M][MAX_N];
+// caches the list of factors for each distinct tablet value we
+// encounter, since the same value can appear in multiple cells and we
+// don't want to recompute its factor pairs every time
 int *factors[MAX_VALUE + 1];
 int factorCount[MAX_VALUE + 1];
 
@@ -16,11 +19,15 @@ typedef struct {
     int col;
 } Pos;
 
+// a manually managed growable stack of positions still to visit, used
+// instead of recursion to avoid stack overflow on large grids
 Pos *stack;
 int stackSize;
 int stackCapacity;
 
 void pushStack(int row, int col) {
+    // double the capacity whenever the stack is full, amortising the
+    // cost of resizing across many pushes
     if (stackSize == stackCapacity) {
         stackCapacity *= 2;
         stack = realloc(stack, stackCapacity * sizeof(Pos));
@@ -35,6 +42,9 @@ Pos popStack(void) {
     return stack[stackSize];
 }
 
+// performs an iterative depth first search from cell (0, 0), returns
+// true if the exit cell (m - 1, n - 1) is reachable via the portal
+// rules
 bool dfs(int m, int n) {
     stackCapacity = 1024;
     stack = malloc(stackCapacity * sizeof(Pos));
@@ -48,6 +58,9 @@ bool dfs(int m, int n) {
         int row = cur.row;
         int col = cur.col;
 
+        // a cell can be pushed onto the stack multiple times before
+        // being processed, since we don't check visited status at
+        // push time, so skip it here if it's already been handled
         if (visited[row][col]) {
             continue;
         }
@@ -60,7 +73,10 @@ bool dfs(int m, int n) {
         visited[row][col] = true;
 
         int value = grid[row][col];
-
+        // compute and cache this value's factors the first time we
+        // see it, factors only need to go up to m since a factor
+        // larger than m could never correspond to a valid row number
+        // anyway (rows are numbered 1 to m)
         if (factors[value] == NULL) {
             int count = 0;
             for (int factor = 1; factor <= m; factor++) {
@@ -80,7 +96,9 @@ bool dfs(int m, int n) {
                 }
             }
         }
-
+        // for every valid factor pair of this cell's value, that
+        // defines a portal destination, push it onto the stack if
+        // it's a valid, unvisited cell within the grid's bounds
         for (int k = 0; k < factorCount[value]; k++) {
             int factor = factors[value][k];
             int new_row = factor - 1;
