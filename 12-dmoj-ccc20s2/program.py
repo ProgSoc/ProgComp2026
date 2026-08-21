@@ -25,7 +25,7 @@ def dfs(grid, m, n):
                 # We keep the 1-based indexing of rooms in the stack.
                 stack.append((row, col))
                 seen[(row - 1) * n + (col - 1)] = True
-                if ((row, col) == (m, n)):
+                if (row, col) == (m, n):
                     break
     # We are able to escape the labyrinth if the final room (corresponding to the room (m, n)) is visited.
     return seen[-1]
