@@ -1,6 +1,6 @@
 # To prevent TLE, it is better to precompute the possible rooms any value can map to beforehand.
 
-def dfs(grid: list[list[int]], m: int, n: int) -> bool:
+def dfs(grid, m, n):
     # Precompute the traversal graph,
     # such that `adj[v]` returns the list of all rooms that can be reached
     # from a room that has the value `v` in it.
