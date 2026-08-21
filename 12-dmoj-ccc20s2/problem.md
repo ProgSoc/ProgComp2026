@@ -40,6 +40,10 @@ contains the space-separated integers $x_{i, 1}, x_{i, 2}, \dots, x_{i, N}$,
 such that $x_{i, j}$ is the integer contained in the tablet of cell $(i, j)$.
 In all cases, $1 \le x_{i, j} \le 10^6$.
 
+*Note for Java users: To pass all test cases of this question,
+using a `Scanner` will be too slow in reading the entire input.
+Used a `BufferedReader` instead.*
+
 ### Output
 
 Your output is a single line.
