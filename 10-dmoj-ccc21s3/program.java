@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class problem {
+public class program {
     static long[] P, W, D;
     static int number;
 

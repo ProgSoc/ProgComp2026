@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class problem {
+public class program {
     static int[][] table = new int[100][100];
 
     // checks whether the operator defined in table (over n elements)

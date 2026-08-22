@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class problem {
+public class program {
 
     // a 2x2 matrix, used to represent the fibonacci transformation
     static long[][] matmul(long[][] a, long[][] b, long base) {

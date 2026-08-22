@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class problem {
+public class program {
     public static void main(String[] args) throws IOException {
         StreamTokenizer in = new StreamTokenizer(new BufferedReader(new InputStreamReader(System.in)));
 

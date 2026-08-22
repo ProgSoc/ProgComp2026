@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class problem {
+public class program {
     static boolean[][] adj;
     static long[] paths;
 

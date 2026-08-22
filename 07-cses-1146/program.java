@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class problem {
+public class program {
 
     // counts the total number of 1 bits across all numbers from 0 to n
     static long countBits(long n) {

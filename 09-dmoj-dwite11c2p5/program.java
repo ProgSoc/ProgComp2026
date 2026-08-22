@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class problem {
+public class program {
     static int[] parent;
     static int[] setSize;
 

@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class problem {
+public class program {
 
     // computes p(n, k): the k-th permutation (1-indexed) of [1..n] in
     // lexicographical order, using the factorial number system
