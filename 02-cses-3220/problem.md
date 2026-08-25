@@ -1,44 +1,25 @@
 # Legacy Passcode
 
-You've been tasked to look through an old legacy codebase (nobody knows how old it is).
-Although you are confident in your knowledge of old and now-esoteric programming languages,
-you quickly realise that's the least of your worries.
-Instead, you are completely unable to access the codebase,
-since it requires a passcode to unlock.
-(The last person who knew this passcode resigned from your company more than 30 years ago.)
+You've been tasked to look through an old legacy codebase (nobody knows how old it is). Although you are confident in your knowledge of old and now-esoteric programming languages, you quickly realise that's the least of your worries. Instead, you are completely unable to access the codebase, since it requires a passcode to unlock. (The last person who knew this passcode resigned from your company more than 30 years ago.)
 
-Luckily for you, the codebase and its associated technology is so old that even its security is lacklustre by modern standards.
-People back then were just as lazy as they are now, so the passcode is the default that was automatically generated at the time.
-You've managed to find a dusty manual that describes the mechanism through which such a passcode is generated,
-so your task now is to figure out what this passcode is.
-Here's what the manual describes:
+Luckily for you, the codebase and its associated technology is so old that even its security is lacklustre by modern standards. People back then were just as lazy as they are now, so the passcode is the default that was automatically generated at the time. You've managed to find a dusty manual that describes the mechanism through which such a passcode is generated, so your task now is to figure out what this passcode is. Here's what the manual describes:
 
-* The passcode is based on a sequence of integers outputted by a generator.
-  This generator depends on four integer parameters: $x$, $a$, $b$, and $c$.
-  * The $i$-th integer outputted by the generator is $x_i$,
-    and depends on the previous integer such that $x_i = (a x_{i-1} + b) \, \% \, c$, where $\%$ is the modulo operator.
+* The passcode is based on a sequence of integers outputted by a generator. This generator depends on four integer parameters: $x$, $a$, $b$, and $c$.
+  * The $i$-th integer outputted by the generator is $x_i$, and depends on the previous integer such that $x_i = (a x_{i-1} + b) \, \% \, c$, where $\%$ is the modulo operator.
   * The first integer outputted is $x_1$, such that $x_1 = x$.
-* The actual passcode creation depends on two more integer parameters: $n$ and $k$.
-  Specifically, the integers $x_1$ to $x_n$ are used, with windows of size $k$ being considered at a time.
-  * For every such window (starting from $x_1 , \dots , x_k$, then to $x_2 , \dots , x_{k+1}$, all the way to $x_{n-k+1} , \dots , x_n$),
-    the sum of the contained integers is calculated.
-  * Then, the sums of each window are bitwise XOR'd together to generate the passcode.
-    That is, letting the window sums be $w_1$, $w_2$ all the way to $w_{n-k+1}$,
-    the final passcode is $w_1 \oplus w_2 \oplus \dots \oplus w_{n-k+1}$ where $\oplus$ is the bitwise XOR operation.
+* The actual passcode creation depends on two more integer parameters: $n$ and $k$. Specifically, the integers $x_1$ to $x_n$ are used, with windows of size $k$ being considered at a time.
+  * For every such window (starting from $x_1 , \dots , x_k$, then to $x_2 , \dots , x_{k+1}$, all the way to $x_{n-k+1} , \dots , x_n$), the sum of the contained integers is calculated.
+  * Then, the sums of each window are bitwise XOR'd together to generate the passcode. That is, letting the window sums be $w_1$, $w_2$ all the way to $w_{n-k+1}$, the final passcode is $w_1 \oplus w_2 \oplus \dots \oplus w_{n-k+1}$ where $\oplus$ is the bitwise XOR operation.
 
-Being the extremely efficient sleuth you are, you find a sticky note with six integers on them buried under various folders,
-and you figure they must be the parameters for the passcode generation.
-You can now figure out what the passcode is!
+Being the extremely efficient sleuth you are, you find a sticky note with six integers on them buried under various folders, and you figure they must be the parameters for the passcode generation. You can now figure out what the passcode is!
 
 ### Input
 
 Your input will consist of two lines.
 
-The first line contains two space-separated integers: $n$ and $k$ ($1 \le k \le n \le 10^7$),
-which are the parameters of the passcode creation itself.
+The first line contains two space-separated integers: $n$ and $k$ ($1 \le k \le n \le 10^7$), which are the parameters of the passcode creation itself.
 
-The second line contains four space-separated integers: $x$, $a$, $b$, and $c$ ($0 \le x, a, b \le 10^9$, $1 \le c \le 10^9$),
-which are the parameters of the integer generator.
+The second line contains four space-separated integers: $x$, $a$, $b$, and $c$ ($0 \le x, a, b \le 10^9$, $1 \le c \le 10^9$), which are the parameters of the integer generator.
 
 ### Output
 

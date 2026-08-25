@@ -1,18 +1,10 @@
 # Fibonacci's Homework
 
-Everybody remembers the story of Carl Friedrich Gauss in his primary school days:
-one day his teacher wanted to keep the students in his maths class busy,
-and so he asked them all to sum up the integers from $1$ to $100$.
-To his amazement, Gauss got the solution much faster than he had expected,
-through a formula we now all use to this day.
+Everybody remembers the story of Carl Friedrich Gauss in his primary school days: one day his teacher wanted to keep the students in his maths class busy, and so he asked them all to sum up the integers from $1$ to $100$. To his amazement, Gauss got the solution much faster than he had expected, through a formula we now all use to this day.
 
-Now, you suddenly find yourself in a similar situation.
-You have just been given a conceptually simple piece of homework,
-only this time it's not quite as simple as adding all positive integers up until a certain number.
+Now, you suddenly find yourself in a similar situation. You have just been given a conceptually simple piece of homework, only this time it's not quite as simple as adding all positive integers up until a certain number.
 
-Instead, your teacher gives you an integer $N$.
-Your task is to find the $N$-th Fibonacci number
-(modulo $10^9 + 7$, since your teacher is still considerate about how many digits you may have to write for your solution).
+Instead, your teacher gives you an integer $N$. Your task is to find the $N$-th Fibonacci number (modulo $10^9 + 7$, since your teacher is still considerate about how many digits you may have to write for your solution).
 
 Formally, the Fibonacci sequence is made up of integers $F(n)$ where $n \ge 0$ is an integer, such that
 * $F(0) = 0$,
@@ -23,8 +15,7 @@ where $F(n)$ represents the $n$-th Fibonacci number.
 
 ### Input
 
-Your input consists of a single integer $N$ ($1 \le N \le 10^{19}$),
-the integer given to you by your teacher.
+Your input consists of a single integer $N$ ($1 \le N \le 10^{19}$), the integer given to you by your teacher.
 
 ### Output
 
