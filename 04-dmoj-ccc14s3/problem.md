@@ -2,9 +2,23 @@
 
 Congratulations! You've just been hired to the esteemed job of 'downhill traffic controller'. You now specialise in directing traffic through tricky situations, specifically ones that involve travelling downhill. Naturally, one of the main key performance indicators of your job is that nobody crashes into each other. However, today we won't be so worried about that just yet. You have a special shift today.
 
-Today, you have been given a job on a notorious parking lot situated on the side of a mountain. Near the mountain top, there is a single line of cars, each numbered from $1$ to $N$ in some order. Cars can only move down the mountain one at a time, so a car cannot overtake another car. There is also a separate parking line that goes horizontally (we refer to this as the 'branch'), which cars can drive into to stay temporarily before finally going further down the hill (cars cannot go back up towards the mountain top). At the bottom of this mountain is a lake, where all the cars are trying to go. A diagram of this mountain you're on is shown below (Note: if you're struggling to see the images in this prompt on a dark background, open the image in a new tab with a white background).
+Today, you have been given a job on a notorious parking lot situated on the side of a mountain. Near the mountain top, there is a single line of cars, each numbered from $1$ to $N$ in some order. Cars can only move down the mountain one at a time, so a car cannot overtake another car. There is also a separate parking line that goes horizontally (we refer to this as the 'branch'), which cars can drive into to stay temporarily before finally going further down the hill (cars cannot go back up towards the mountain top). At the bottom of this mountain is a lake, where all the cars are trying to go. A diagram of this mountain you're on is shown below.
 
-![Mountain Diagram](https://static.dmoj.ca/texoid/2b0580e67e261c9a59df7e1532337a6e0b7e7325/svg)
+```
+mountain top
+    | |
+    | |
+    | |
+    | |
+    |  \___________
+    |   ___________ branch
+    |  /
+    | |
+    | |
+    | |
+    | |
+   lake
+```
 
 Your boss today has given you some very specific instructions. Rather than just letting the cars go on through in the order they're in, he wants them to exit the mountain strictly in the order of Car $1$ first, followed by Car $2$, all the way until Car $N$. Since the cars may not be starting in the suitable order for this and cannot overtake each other, some cars may have to temporarily park in the branch to achieve this. Cars also cannot overtake each other along the branch. For example, if Car $x$ enters the branch followed by Car $y$, Car $y$ *must* exit the branch first before Car $x$ can.
 
@@ -46,7 +60,21 @@ N
 
 The starting point of the first test case is illustrated below.
 
-![Test Case 1](https://static.dmoj.ca/texoid/e63ff495096b962bee479fe1263e8eaea74ae103/svg)
+```
+mountain top
+    |2|
+    |3|
+    |1|
+    |4|
+    |  \___________
+    |   ___________ branch
+    |  /
+    | |
+    | |
+    | |
+    | |
+   lake
+```
 
 The cars can exit the mountain and get to the lake in the required order with the following steps.
 * Car 4 moves to the branch.

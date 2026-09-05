@@ -11,6 +11,8 @@ Formally, the Fibonacci sequence is made up of integers $F(n)$ where $n \ge 0$ i
 * $F(1) = 1$, and
 * $F(n) = F(n-1) + F(n-2)$ for $n \ge 2$.
 
+*Note for Python users, please select the `Python 3` option instead of the `PyPy 3` option for this question.*
+
 ### Input
 
 Your input will consist of five lines. Each line $i$ (where $1 \le i \le 5$) consists of a single integer $0 \le n_i \le 10^9$.
