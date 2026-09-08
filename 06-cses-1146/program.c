@@ -16,21 +16,22 @@ unsigned long long count_bits(unsigned long long n) {
     }
     unsigned long long half = 1ull << d;
 
-    // numbers from 0 to half - 1 don't have bit d set, so this range
-    // contributes nothing at bit d, but still needs its own bits
-    // counted recursively, and since half - 1 has the same number of
-    // bits below position d for every value up to half - 1, this
-    // recursive count also equals the total contribution from bit d
-    // downwards across one full block, used further below
-    unsigned long long lower_half_count = count_bits(half - 1);
+    // numbers from 0 to half - 1 form a complete block of d-bit
+    // numbers, and every bit position within a complete block is set
+    // in exactly half the numbers, so the total 1-bits in this whole
+    // block has a direct formula instead of needing recursion:
+    // d positions, each set in (half / 2) of the numbers
+    unsigned long long lower_half_count = (unsigned long long) d * (half >> 1);
 
     // numbers from half to n all have bit d set, that's (n - half + 1)
     // numbers each contributing exactly one 1 bit at position d alone
     unsigned long long high_half_bit_d = n - half + 1;
 
     // the remaining bits (below position d) of numbers from half to n
-    // are the same as the bits of numbers from 0 to (n - half), so
-    // recurse on that smaller remainder
+    // are the same as the bits of numbers from 0 to (n - half), and
+    // since n - half is strictly smaller than half, this is now a
+    // genuinely smaller subproblem, so recursing here (and only here)
+    // keeps the recursion depth logarithmic instead of exponential
     unsigned long long high_half_lower_bits = count_bits(n - half);
 
     return lower_half_count + high_half_bit_d + high_half_lower_bits;
