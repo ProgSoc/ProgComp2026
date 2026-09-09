@@ -5,8 +5,8 @@ It's 1 am and you're currently helping your sibling with their maths homework. W
 Specifically, this question concerns itself with permutations of positive integers. Let $p(n, k)$ define the $k$-th permutation of the integers from $1$ to $n$ inclusive, when ranked in ascending lexicographical order. For example, $p(3, 1) = [1, 2, 3]$, $p(3, 2) = [1, 3, 2]$, and $p(3, 6) = [3, 2, 1]$.
 
 Every sub-question is either Type 1 or Type 2.
-* Type 1 sub-questions provide the integers $n$ and $k$, and ask for the permutation $p(n, k)$.
-* Type 2 sub-questions provide the integer $n$ and the permutation $p(n, k)$, and ask for the integer $k$.
+* Type 1 provides the integers $n$ and $k$, and asks for the permutation $p(n, k)$.
+* Type 2 provides the integer $n$ and the permutation $p(n, k)$, and asks for the integer $k$.
 
 Your sibling has gotten so fed up with their maths homework that they have stormed out of their room, leaving you staring at their homework in disbelief. (Why are there so many sub-questions?!) However, you also know that your sibling doesn't get along with their maths teacher, so you think it's best that they complete tonight's homework in time. Working it all out by hand sounds like a pain though, so you get the brilliant idea of writing a program to do the homework.
 
