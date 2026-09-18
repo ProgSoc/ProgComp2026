@@ -93,7 +93,7 @@ Vector gauss_jordan(Matrix a, Vector b) {
     for (int i = 0; i < m; ++i) {
         solution[i] = solution[i] == -1 ? 0 : b[solution[i]];
     }
-    return pivots;
+    return solution;
 }
 
 int main() {

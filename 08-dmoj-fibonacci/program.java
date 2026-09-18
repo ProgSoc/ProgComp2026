@@ -1,4 +1,5 @@
-import java.io.*;
+import java.math.BigInteger;
+import java.util.Scanner;
 
 public class program {
 
@@ -17,9 +18,9 @@ public class program {
         return ans;
     }
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        long n = Long.parseLong(br.readLine().trim());
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        BigInteger n = sc.nextBigInteger();
 
         // x is the accumulated result, starts as the identity matrix
         // since multiplying by it does nothing, the standard starting
@@ -37,20 +38,21 @@ public class program {
         // instead of n separate multiplications, this brings the
         // complexity down from o(n) to o(log n), essential given n can
         // be up to 10^19
-        while (n != 0) {
+        while (!n.equals(BigInteger.ZERO)) {
             // if the current bit of n is set, fold the current power of
             // f into the result
-            if ((n & 1) != 0) {
+            if (n.mod(BigInteger.TWO).equals(BigInteger.ONE)) {
                 x = matmul(x, f, base);
             }
             // square f each iteration, so it always represents f raised
             // to the next power of two
             f = matmul(f, f, base);
-            n >>= 1;
+            n = n.shiftRight(1);
         }
 
         // x now holds f^n, and since f^n = [[F(n-1),F(n)],[F(n),F(n+1)]],
         // the value we want, F(n), sits at position [0][1]
         System.out.println(x[0][1]);
+        sc.close();
     }
 }

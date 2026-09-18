@@ -1,4 +1,3 @@
-import java.io.*;
 import java.util.*;
 
 public class program {
@@ -78,23 +77,19 @@ public class program {
         return k;
     }
 
-    public static void main(String[] args) throws IOException {
-        StreamTokenizer in = new StreamTokenizer(new BufferedReader(new InputStreamReader(System.in)));
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         StringBuilder sb = new StringBuilder();
 
-        in.nextToken();
-        int t = (int) in.nval;
+        int t = sc.nextInt();
 
         while (t-- > 0) {
-            in.nextToken();
-            int type = (int) in.nval;
-            in.nextToken();
-            int n = (int) in.nval;
+            int type = sc.nextInt();
+            int n = sc.nextInt();
 
             if (type == 1) {
                 // type 1: given n and k, output the permutation p(n, k)
-                in.nextToken();
-                long k = (long) in.nval;
+                long k = sc.nextLong();
 
                 long[] p = getP(n, k);
                 for (int i = 0; i < n; i++) {
@@ -108,13 +103,13 @@ public class program {
                 // type 2: given n and the permutation itself, output its rank k
                 long[] p = new long[n];
                 for (int i = 0; i < n; i++) {
-                    in.nextToken();
-                    p[i] = (long) in.nval;
+                    p[1] = sc.nextLong();
                 }
                 sb.append(getK(n, p)).append("\n");
             }
         }
 
         System.out.print(sb);
+        sc.close();
     }
 }
