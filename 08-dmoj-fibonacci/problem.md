@@ -13,11 +13,11 @@ Formally, the Fibonacci sequence is made up of integers $F(n)$ where $n \ge 0$ i
 
 where $F(n)$ represents the $n$-th Fibonacci number.
 
-*Note for Java users: To be able to read integers up to $10^{19}$, you will need to read a `BigInteger` instead of a `long`.*
-
 ### Input
 
 Your input consists of a single integer $N$ ($1 \le N \le 10^{19}$), the integer given to you by your teacher.
+
+*Note for Java users: To be able to read integers up to $10^{19}$, you will need to read a `BigInteger` instead of a `long`.*
 
 ### Output
 
